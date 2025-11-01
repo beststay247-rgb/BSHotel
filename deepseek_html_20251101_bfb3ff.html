@@ -1,0 +1,2617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BS Rooms - Book Hotels at Best Prices</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        :root {
+            --primary: #e23744;
+            --primary-dark: #c31e2b;
+            --secondary: #2d3748;
+            --light: #f8f9fa;
+            --dark: #343a40;
+            --success: #28a745;
+            --warning: #ffc107;
+            --danger: #dc3545;
+            --gray: #6c757d;
+            --light-gray: #e9ecef;
+        }
+
+        body {
+            background-color: #f5f5f5;
+            color: var(--dark);
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: white;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 0;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-left: 10px;
+        }
+
+        .logo i {
+            color: var(--primary);
+            font-size: 32px;
+        }
+
+        .search-bar {
+            display: flex;
+            flex: 1;
+            max-width: 500px;
+            margin: 0 20px;
+        }
+
+        .search-bar input {
+            flex: 1;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px 0 0 4px;
+            font-size: 16px;
+        }
+
+        .search-bar button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0 20px;
+            border-radius: 0 4px 4px 0;
+            cursor: pointer;
+        }
+
+        .user-actions {
+            display: flex;
+            align-items: center;
+        }
+
+        .user-actions a {
+            margin-left: 15px;
+            color: var(--dark);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .user-actions a:hover {
+            color: var(--primary);
+        }
+
+        .user-actions .btn {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+        }
+
+        .user-actions .btn:hover {
+            background-color: var(--primary-dark);
+            color: white;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--secondary);
+            padding: 10px 0;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-right: 20px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        nav ul li a:hover {
+            color: var(--light-gray);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1200&q=80');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 80px 0;
+            text-align: center;
+        }
+
+        .hero h2 {
+            font-size: 42px;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            max-width: 700px;
+            margin: 0 auto 30px;
+        }
+
+        .search-box {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 900px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+        }
+
+        .search-box input, .search-box select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+        }
+
+        .search-box button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            padding: 12px;
+            font-weight: 500;
+            cursor: pointer;
+            grid-column: span 1;
+        }
+
+        /* Support Section */
+        .support-section {
+            background-color: white;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 40px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .support-section h2 {
+            color: var(--secondary);
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        .support-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            margin-top: 30px;
+        }
+
+        .support-item {
+            padding: 20px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            transition: transform 0.3s;
+        }
+
+        .support-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .support-icon {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+        }
+
+        .support-item h3 {
+            margin-bottom: 10px;
+            color: var(--secondary);
+        }
+
+        .support-item p {
+            color: var(--gray);
+            margin-bottom: 10px;
+        }
+
+        .contact-info {
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        /* Hotel Listings */
+        .section-title {
+            margin: 40px 0 20px;
+            font-size: 28px;
+            color: var(--secondary);
+        }
+
+        .hotel-listings {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .hotel-card {
+            background-color: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+            cursor: pointer;
+            position: relative;
+        }
+
+        .hotel-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .hotel-image {
+            height: 200px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .hotel-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .hotel-card:hover .hotel-image img {
+            transform: scale(1.05);
+        }
+
+        .image-count {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0,0,0,0.7);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+
+        .sold-out-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: var(--danger);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            z-index: 2;
+        }
+
+        .hotel-details {
+            padding: 15px;
+        }
+
+        .hotel-name {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .hotel-location {
+            color: var(--gray);
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+
+        .hotel-location i {
+            margin-right: 5px;
+        }
+
+        .hotel-price {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 15px;
+        }
+
+        .price {
+            font-size: 20px;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .price span {
+            font-size: 14px;
+            color: var(--gray);
+            text-decoration: line-through;
+            margin-right: 5px;
+        }
+
+        .discount {
+            background-color: var(--success);
+            color: white;
+            padding: 3px 8px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .occupancy-price {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .available-rooms {
+            font-size: 14px;
+            color: var(--gray);
+            margin-top: 5px;
+        }
+
+        .btn-book {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            font-weight: 500;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+        }
+
+        .btn-book:disabled {
+            background-color: var(--gray);
+            cursor: not-allowed;
+        }
+
+        /* Amenities */
+        .amenities {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .amenity {
+            display: flex;
+            align-items: center;
+            margin-right: 15px;
+            margin-bottom: 5px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .amenity i {
+            margin-right: 5px;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 40px 0 20px;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+
+        .footer-column h3 {
+            font-size: 18px;
+            margin-bottom: 20px;
+            color: var(--light);
+        }
+
+        .footer-column ul {
+            list-style: none;
+        }
+
+        .footer-column ul li {
+            margin-bottom: 10px;
+        }
+
+        .footer-column ul li a {
+            color: var(--light-gray);
+            text-decoration: none;
+        }
+
+        .footer-column ul li a:hover {
+            color: white;
+        }
+
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: var(--light-gray);
+            font-size: 14px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            overflow-y: auto;
+            padding: 20px 0;
+        }
+
+        .modal-content {
+            background-color: white;
+            border-radius: 8px;
+            width: 90%;
+            max-width: 900px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .modal-header h2 {
+            color: var(--secondary);
+        }
+
+        .close {
+            font-size: 24px;
+            cursor: pointer;
+            color: var(--gray);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 500;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        .price-variants {
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+
+        .price-variant {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .price-variant input {
+            flex: 1;
+        }
+
+        .photo-upload {
+            border: 2px dashed var(--light-gray);
+            border-radius: 4px;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .photo-preview {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .photo-preview-item {
+            position: relative;
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+        }
+
+        .photo-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .remove-photo {
+            position: absolute;
+            top: 5px;
+            right: 5px;
+            background-color: rgba(255,255,255,0.8);
+            border: none;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .form-actions {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: 500;
+            font-size: 16px;
+        }
+
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .btn-secondary {
+            background-color: var(--gray);
+            color: white;
+            margin-right: 10px;
+        }
+
+        /* Payment Section */
+        .payment-section {
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            background-color: var(--light);
+        }
+
+        .payment-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .payment-option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .payment-option:hover {
+            border-color: var(--primary);
+            background-color: rgba(226, 55, 68, 0.05);
+        }
+
+        .payment-option.selected {
+            border-color: var(--primary);
+            background-color: rgba(226, 55, 68, 0.1);
+        }
+
+        .payment-icon {
+            font-size: 24px;
+            margin-right: 15px;
+            color: var(--primary);
+        }
+
+        .payment-details {
+            flex: 1;
+        }
+
+        .payment-details h4 {
+            margin-bottom: 5px;
+        }
+
+        .payment-details p {
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        .upi-qr {
+            text-align: center;
+            padding: 20px;
+            background-color: white;
+            border-radius: 8px;
+            margin-top: 15px;
+            display: none;
+        }
+
+        .upi-qr img {
+            max-width: 100%;
+            margin-bottom: 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+        }
+
+        .upi-id {
+            background-color: var(--light);
+            padding: 10px;
+            border-radius: 4px;
+            font-family: monospace;
+            margin: 10px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .payment-screenshot {
+            margin-top: 20px;
+            display: none;
+        }
+
+        .screenshot-preview {
+            max-width: 300px;
+            margin: 10px 0;
+            border: 1px solid var(--light-gray);
+            border-radius: 8px;
+            display: none;
+        }
+
+        .screenshot-preview img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        /* Hotel Gallery Modal */
+        .hotel-gallery {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .gallery-main {
+            grid-column: span 2;
+            height: 300px;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .gallery-main img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .gallery-thumbnails {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 10px;
+        }
+
+        .gallery-thumb {
+            height: 100px;
+            border-radius: 4px;
+            overflow: hidden;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: opacity 0.3s;
+        }
+
+        .gallery-thumb:hover, .gallery-thumb.active {
+            opacity: 1;
+        }
+
+        .gallery-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Admin Panel */
+        .admin-panel {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .admin-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        .admin-tabs {
+            display: flex;
+            margin-bottom: 20px;
+        }
+
+        .admin-tab {
+            padding: 10px 20px;
+            background-color: var(--light-gray);
+            margin-right: 5px;
+            border-radius: 4px 4px 0 0;
+            cursor: pointer;
+        }
+
+        .admin-tab.active {
+            background-color: var(--primary);
+            color: white;
+        }
+
+        .admin-content {
+            display: none;
+        }
+
+        .admin-content.active {
+            display: block;
+        }
+
+        .admin-search {
+            margin-bottom: 20px;
+        }
+
+        .admin-search input {
+            width: 100%;
+            padding: 10px 15px;
+            border: 1px solid var(--light-gray);
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+
+        table th, table td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        table th {
+            background-color: var(--light);
+            font-weight: 600;
+        }
+
+        .status {
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        .status.confirmed {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .status.pending {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .status.cancelled {
+            background-color: #f8d7da;
+            color: #721c24;
+        }
+
+        .action-btn {
+            padding: 5px 10px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .btn-edit {
+            background-color: var(--warning);
+            color: var(--dark);
+        }
+
+        .btn-delete {
+            background-color: var(--danger);
+            color: white;
+        }
+
+        .btn-confirm {
+            background-color: var(--success);
+            color: white;
+        }
+
+        .screenshot-cell {
+            max-width: 150px;
+        }
+
+        .screenshot-cell img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            border: 1px solid var(--light-gray);
+        }
+
+        /* Customer Dashboard */
+        .customer-dashboard {
+            display: none;
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px 0;
+        }
+
+        .customer-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--light-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-top {
+                flex-direction: column;
+            }
+
+            .search-bar {
+                max-width: 100%;
+                margin: 15px 0;
+            }
+
+            .search-box {
+                grid-template-columns: 1fr;
+            }
+
+            .hotel-listings {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-content {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .photo-preview {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            
+            .hotel-gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            .gallery-main {
+                grid-column: span 1;
+            }
+            
+            .payment-options {
+                flex-direction: column;
+            }
+            
+            .support-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-top">
+                <div class="logo">
+                    <i class="fas fa-hotel"></i>
+                    <h1>BS Rooms</h1>
+                </div>
+                <div class="search-bar">
+                    <input type="text" id="header-search" placeholder="Search for hotels, cities...">
+                    <button id="header-search-btn"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="user-actions">
+                    <a href="#" id="admin-login-link">Admin Login</a>
+                    <a href="#" id="customer-login-link">Customer Login</a>
+                    <a href="#" class="btn" id="register-link">Register</a>
+                </div>
+            </div>
+        </div>
+        <nav>
+            <div class="container">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">Hotels</a></li>
+                    <li><a href="#">About Us</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <h2>Find Your Perfect Stay</h2>
+            <p>Discover amazing hotels at unbeatable prices across India</p>
+            <div class="search-box">
+                <input type="text" id="search-location" placeholder="City, area, or hotel name">
+                <input type="date" id="search-checkin" placeholder="Check-in">
+                <input type="date" id="search-checkout" placeholder="Check-out">
+                <select id="search-occupancy">
+                    <option value="">Select Occupancy</option>
+                    <option value="1">1 Guest</option>
+                    <option value="2">2 Guests</option>
+                    <option value="3">3 Guests</option>
+                    <option value="4">4 Guests</option>
+                    <option value="5">5+ Guests</option>
+                </select>
+                <button id="search-hotels-btn">Search Hotels</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+        <h2 class="section-title">Popular Hotels</h2>
+        <div class="hotel-listings" id="hotel-listings">
+            <!-- Hotel cards will be populated by JavaScript -->
+        </div>
+
+        <!-- Support Section -->
+        <section class="support-section">
+            <h2>24/7 Customer Support</h2>
+            <p>We're here to help you with any questions or issues you may have</p>
+            <div class="support-content">
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>Available 24/7 for urgent issues</p>
+                    <div class="contact-info">+91 6291955173</div>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>We'll respond within 2 hours</p>
+                    <div class="contact-info">beststay24.7@gmail.com</div>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-comments"></i>
+                    </div>
+                    <h3>Live Chat</h3>
+                    <p>Instant help during business hours</p>
+                    <div class="contact-info">Available 9 AM - 9 PM</div>
+                </div>
+                <div class="support-item">
+                    <div class="support-icon">
+                        <i class="fas fa-question-circle"></i>
+                    </div>
+                    <h3>FAQ</h3>
+                    <p>Find answers to common questions</p>
+                    <div class="contact-info"><a href="#" style="color: var(--primary);">View FAQ</a></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Admin Panel (Initially Hidden) -->
+        <div class="admin-panel" id="admin-panel">
+            <div class="admin-header">
+                <h2>Admin Dashboard</h2>
+                <button class="btn btn-primary" id="logout-admin">Logout</button>
+            </div>
+            
+            <div class="admin-tabs">
+                <div class="admin-tab active" data-tab="hotels">Manage Hotels</div>
+                <div class="admin-tab" data-tab="bookings">Manage Bookings</div>
+                <div class="admin-tab" data-tab="customers">Manage Customers</div>
+            </div>
+            
+            <div class="admin-content active" id="hotels-content">
+                <div class="admin-search">
+                    <input type="text" id="admin-hotel-search" placeholder="Search by hotel name...">
+                </div>
+                <div class="form-actions">
+                    <button class="btn btn-primary" id="add-hotel">Add New Hotel</button>
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Hotel Name</th>
+                            <th>Location</th>
+                            <th>Price</th>
+                            <th>Available Rooms</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-hotels-list">
+                        <!-- Hotels will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="admin-content" id="bookings-content">
+                <div class="admin-search">
+                    <input type="text" id="admin-booking-search" placeholder="Search by booking ID, customer name, or hotel...">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Booking ID</th>
+                            <th>Customer</th>
+                            <th>Hotel</th>
+                            <th>Check-in</th>
+                            <th>Check-out</th>
+                            <th>Amount</th>
+                            <th>Status</th>
+                            <th>Payment Proof</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-bookings-list">
+                        <!-- Bookings will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div class="admin-content" id="customers-content">
+                <div class="admin-search">
+                    <input type="text" id="admin-customer-search" placeholder="Search by customer name or email...">
+                </div>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Customer ID</th>
+                            <th>Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Bookings</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="admin-customers-list">
+                        <!-- Customers will be populated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Customer Dashboard (Initially Hidden) -->
+        <div class="customer-dashboard" id="customer-dashboard">
+            <div class="customer-header">
+                <h2>My Dashboard</h2>
+                <button class="btn btn-primary" id="logout-customer">Logout</button>
+            </div>
+            <h3>My Bookings</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Booking ID</th>
+                        <th>Hotel</th>
+                        <th>Check-in</th>
+                        <th>Check-out</th>
+                        <th>Amount</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="customer-bookings-list">
+                    <!-- Customer bookings will be populated by JavaScript -->
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>BS Rooms</h3>
+                    <ul>
+                        <li><a href="#">About Us</a></li>
+                        <li><a href="#">Careers</a></li>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Press</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Partner With Us</h3>
+                    <ul>
+                        <li><a href="#">List Your Property</a></li>
+                        <li><a href="#">Partner Program</a></li>
+                        <li><a href="#">Travel Agent</a></li>
+                        <li><a href="#">Corporate</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Help & Support</h3>
+                    <ul>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms of Service</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact Us</h3>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +91 6291955173</li>
+                        <li><i class="fas fa-envelope"></i> beststay24.7@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Mumbai, India</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="copyright">
+                <p>&copy; 2023 BS Rooms. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Login Modal -->
+    <div class="modal" id="login-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Login</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input type="email" id="login-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input type="password" id="login-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="close-login">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Login</button>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <p>Don't have an account? <a href="#" id="switch-to-register" style="color: var(--primary);">Register here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal" id="register-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Register</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="register-form">
+                <div class="form-group">
+                    <label for="register-name">Full Name</label>
+                    <input type="text" id="register-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input type="email" id="register-email" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-phone">Phone</label>
+                    <input type="tel" id="register-phone" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-password">Password</label>
+                    <input type="password" id="register-password" required>
+                </div>
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirm Password</label>
+                    <input type="password" id="register-confirm-password" required>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="close-register">Cancel</button>
+                    <button type="submit" class="btn btn-primary">Register</button>
+                </div>
+                <div style="text-align: center; margin-top: 15px;">
+                    <p>Already have an account? <a href="#" id="switch-to-login" style="color: var(--primary);">Login here</a></p>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Booking Modal -->
+    <div class="modal" id="booking-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Book Hotel</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="booking-form">
+                <div class="form-group">
+                    <label for="booking-hotel">Hotel</label>
+                    <input type="text" id="booking-hotel" readonly>
+                </div>
+                <div class="form-group">
+                    <label for="booking-checkin">Check-in Date</label>
+                    <input type="date" id="booking-checkin" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-checkout">Check-out Date</label>
+                    <input type="date" id="booking-checkout" required>
+                </div>
+                <div class="form-group">
+                    <label for="booking-guests">Number of Guests</label>
+                    <select id="booking-guests" required>
+                        <option value="1">1 Guest</option>
+                        <option value="2" selected>2 Guests</option>
+                        <option value="3">3 Guests</option>
+                        <option value="4">4 Guests</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="booking-rooms">Number of Rooms</label>
+                    <select id="booking-rooms" required>
+                        <option value="1" selected>1 Room</option>
+                        <option value="2">2 Rooms</option>
+                        <option value="3">3 Rooms</option>
+                    </select>
+                </div>
+                <div id="booking-summary" class="form-group">
+                    <h4>Booking Summary</h4>
+                    <p>Price per night: <span id="price-per-night">₹0</span></p>
+                    <p>Total nights: <span id="total-nights">0</span></p>
+                    <p>Total amount: <span id="total-amount">₹0</span></p>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="close-booking">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="proceed-payment">Proceed to Payment</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Payment Modal -->
+    <div class="modal" id="payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Payment</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="payment-section">
+                <h3>Select Payment Method</h3>
+                <div class="payment-options">
+                    <div class="payment-option selected" data-method="upi">
+                        <div class="payment-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <div class="payment-details">
+                            <h4>UPI Payment</h4>
+                            <p>Pay using UPI apps like PhonePe, Google Pay, Paytm</p>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="card">
+                        <div class="payment-icon">
+                            <i class="fas fa-credit-card"></i>
+                        </div>
+                        <div class="payment-details">
+                            <h4>Credit/Debit Card</h4>
+                            <p>Pay using your credit or debit card</p>
+                        </div>
+                    </div>
+                    <div class="payment-option" data-method="netbanking">
+                        <div class="payment-icon">
+                            <i class="fas fa-university"></i>
+                        </div>
+                        <div class="payment-details">
+                            <h4>Net Banking</h4>
+                            <p>Pay using your bank account</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="upi-qr" id="upi-qr-section">
+                    <h4>Scan & Pay Using PhonePe App</h4>
+                    <div class="upi-qr-code">
+                        <!-- QR Code for UPI Payment -->
+                        <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=upi://pay?pa=6291955173@axl&pn=BS%20Rooms&am=100&cu=INR" alt="UPI QR Code">
+                    </div>
+                    <p>Or send payment directly to:</p>
+                    <div class="upi-id">6291955173@axl</div>
+                    <p>After payment, upload screenshot as proof</p>
+                    
+                    <div class="payment-screenshot" id="payment-screenshot">
+                        <label for="screenshot-upload">Upload Payment Screenshot</label>
+                        <input type="file" id="screenshot-upload" accept="image/*">
+                        <div class="screenshot-preview" id="screenshot-preview">
+                            <img src="" alt="Payment Screenshot">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="close-payment">Cancel</button>
+                    <button type="button" class="btn btn-primary" id="confirm-payment">Confirm Payment</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add/Edit Hotel Modal -->
+    <div class="modal" id="hotel-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="hotel-modal-title">Add New Hotel</h2>
+                <span class="close">&times;</span>
+            </div>
+            <form id="hotel-form">
+                <input type="hidden" id="hotel-id">
+                <div class="form-group">
+                    <label for="hotel-name">Hotel Name</label>
+                    <input type="text" id="hotel-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="hotel-location">Location</label>
+                    <input type="text" id="hotel-location" required>
+                </div>
+                
+                <div class="price-variants">
+                    <h4>Price Variants by Occupancy</h4>
+                    <div class="price-variant">
+                        <label>1 Guest:</label>
+                        <input type="number" id="price-1" placeholder="Price for 1 guest" required>
+                    </div>
+                    <div class="price-variant">
+                        <label>2 Guests:</label>
+                        <input type="number" id="price-2" placeholder="Price for 2 guests" required>
+                    </div>
+                    <div class="price-variant">
+                        <label>3 Guests:</label>
+                        <input type="number" id="price-3" placeholder="Price for 3 guests" required>
+                    </div>
+                    <div class="price-variant">
+                        <label>4 Guests:</label>
+                        <input type="number" id="price-4" placeholder="Price for 4 guests" required>
+                    </div>
+                    <div class="price-variant">
+                        <label>5+ Guests:</label>
+                        <input type="number" id="price-5" placeholder="Price for 5+ guests" required>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hotel-original-price">Original Price (₹) - For Discount Calculation</label>
+                    <input type="number" id="hotel-original-price" required>
+                </div>
+                
+                <div class="photo-upload">
+                    <h4>Hotel Photos (Minimum 5)</h4>
+                    <input type="file" id="hotel-photos" accept="image/*" multiple>
+                    <div class="photo-preview" id="photo-preview">
+                        <!-- Photo previews will be added here -->
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="hotel-available-rooms">Available Rooms</label>
+                    <input type="number" id="hotel-available-rooms" required>
+                </div>
+                <div class="form-group">
+                    <label for="hotel-amenities">Amenities (comma separated)</label>
+                    <input type="text" id="hotel-amenities" placeholder="wifi, parking, pool, ac, breakfast">
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="btn btn-secondary" id="close-hotel">Cancel</button>
+                    <button type="submit" class="btn btn-primary" id="save-hotel">Save Hotel</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Hotel Gallery Modal -->
+    <div class="modal" id="gallery-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="gallery-hotel-name">Hotel Photos</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="hotel-gallery">
+                <div class="gallery-main">
+                    <img id="gallery-main-img" src="" alt="Hotel Photo">
+                </div>
+                <div class="gallery-thumbnails" id="gallery-thumbnails">
+                    <!-- Thumbnails will be added here -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Sample Data - Initialize from localStorage if available
+        let hotels = JSON.parse(localStorage.getItem('bsrooms_hotels')) || [
+            {
+                id: 1,
+                name: "Grand Plaza Hotel",
+                location: "Mumbai, Maharashtra",
+                price: 3499,
+                originalPrice: 4999,
+                priceVariants: {
+                    1: 2999,
+                    2: 3499,
+                    3: 3999,
+                    4: 4499,
+                    5: 4999
+                },
+                images: [
+                    "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                ],
+                amenities: ["wifi", "parking", "pool", "ac", "breakfast"],
+                availableRooms: 5
+            },
+            {
+                id: 2,
+                name: "Royal Heritage",
+                location: "Delhi, NCR",
+                price: 4299,
+                originalPrice: 5999,
+                priceVariants: {
+                    1: 3799,
+                    2: 4299,
+                    3: 4799,
+                    4: 5299,
+                    5: 5799
+                },
+                images: [
+                    "https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                    "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                ],
+                amenities: ["wifi", "parking", "spa", "ac", "restaurant"],
+                availableRooms: 3
+            }
+        ];
+
+        let bookings = JSON.parse(localStorage.getItem('bsrooms_bookings')) || [
+            {
+                id: 1001,
+                customerId: 2001,
+                customer: "Raj Sharma",
+                hotel: "Grand Plaza Hotel",
+                hotelId: 1,
+                checkin: "2023-10-15",
+                checkout: "2023-10-17",
+                amount: 6998,
+                status: "confirmed",
+                paymentScreenshot: null
+            },
+            {
+                id: 1002,
+                customerId: 2002,
+                customer: "Priya Patel",
+                hotel: "Seaside Resort",
+                hotelId: 3,
+                checkin: "2023-10-20",
+                checkout: "2023-10-25",
+                amount: 29995,
+                status: "pending",
+                paymentScreenshot: null
+            }
+        ];
+
+        let customers = JSON.parse(localStorage.getItem('bsrooms_customers')) || [
+            {
+                id: 2001,
+                name: "Raj Sharma",
+                email: "raj.sharma@example.com",
+                phone: "9876543210",
+                password: "password123",
+                bookings: 3
+            },
+            {
+                id: 2002,
+                name: "Priya Patel",
+                email: "priya.patel@example.com",
+                phone: "9876543211",
+                password: "password123",
+                bookings: 1
+            }
+        ];
+
+        // Save data to localStorage
+        function saveDataToLocalStorage() {
+            localStorage.setItem('bsrooms_hotels', JSON.stringify(hotels));
+            localStorage.setItem('bsrooms_bookings', JSON.stringify(bookings));
+            localStorage.setItem('bsrooms_customers', JSON.stringify(customers));
+        }
+
+        // DOM Elements
+        const hotelListings = document.getElementById('hotel-listings');
+        const adminPanel = document.getElementById('admin-panel');
+        const customerDashboard = document.getElementById('customer-dashboard');
+        const adminHotelsList = document.getElementById('admin-hotels-list');
+        const adminBookingsList = document.getElementById('admin-bookings-list');
+        const adminCustomersList = document.getElementById('admin-customers-list');
+        const customerBookingsList = document.getElementById('customer-bookings-list');
+        const loginModal = document.getElementById('login-modal');
+        const registerModal = document.getElementById('register-modal');
+        const bookingModal = document.getElementById('booking-modal');
+        const paymentModal = document.getElementById('payment-modal');
+        const hotelModal = document.getElementById('hotel-modal');
+        const galleryModal = document.getElementById('gallery-modal');
+        const adminLoginLink = document.getElementById('admin-login-link');
+        const customerLoginLink = document.getElementById('customer-login-link');
+        const registerLink = document.getElementById('register-link');
+        const logoutAdminBtn = document.getElementById('logout-admin');
+        const logoutCustomerBtn = document.getElementById('logout-customer');
+        const loginForm = document.getElementById('login-form');
+        const registerForm = document.getElementById('register-form');
+        const bookingForm = document.getElementById('booking-form');
+        const hotelForm = document.getElementById('hotel-form');
+        const closeButtons = document.querySelectorAll('.close');
+        const closeLoginBtn = document.getElementById('close-login');
+        const closeRegisterBtn = document.getElementById('close-register');
+        const closeBookingBtn = document.getElementById('close-booking');
+        const closePaymentBtn = document.getElementById('close-payment');
+        const closeHotelBtn = document.getElementById('close-hotel');
+        const adminTabs = document.querySelectorAll('.admin-tab');
+        const adminContents = document.querySelectorAll('.admin-content');
+        const addHotelBtn = document.getElementById('add-hotel');
+        const saveHotelBtn = document.getElementById('save-hotel');
+        const hotelModalTitle = document.getElementById('hotel-modal-title');
+        const searchLocation = document.getElementById('search-location');
+        const searchOccupancy = document.getElementById('search-occupancy');
+        const searchHotelsBtn = document.getElementById('search-hotels-btn');
+        const headerSearch = document.getElementById('header-search');
+        const headerSearchBtn = document.getElementById('header-search-btn');
+        const hotelPhotosInput = document.getElementById('hotel-photos');
+        const photoPreview = document.getElementById('photo-preview');
+        const galleryHotelName = document.getElementById('gallery-hotel-name');
+        const galleryMainImg = document.getElementById('gallery-main-img');
+        const galleryThumbnails = document.getElementById('gallery-thumbnails');
+        const proceedPaymentBtn = document.getElementById('proceed-payment');
+        const confirmPaymentBtn = document.getElementById('confirm-payment');
+        const paymentOptions = document.querySelectorAll('.payment-option');
+        const upiQrSection = document.getElementById('upi-qr-section');
+        const pricePerNight = document.getElementById('price-per-night');
+        const totalNights = document.getElementById('total-nights');
+        const totalAmount = document.getElementById('total-amount');
+        const adminHotelSearch = document.getElementById('admin-hotel-search');
+        const adminBookingSearch = document.getElementById('admin-booking-search');
+        const adminCustomerSearch = document.getElementById('admin-customer-search');
+        const paymentScreenshot = document.getElementById('payment-screenshot');
+        const screenshotUpload = document.getElementById('screenshot-upload');
+        const screenshotPreview = document.getElementById('screenshot-preview');
+        const switchToRegister = document.getElementById('switch-to-register');
+        const switchToLogin = document.getElementById('switch-to-login');
+
+        // Track current user
+        let currentUser = null;
+        let currentHotelId = null;
+        let isEditingHotel = false;
+        let uploadedPhotos = [];
+        let currentGalleryHotel = null;
+        let currentBookingDetails = null;
+        let paymentScreenshotData = null;
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            renderHotels();
+            setupEventListeners();
+        });
+
+        // Render hotels on the main page
+        function renderHotels(filteredHotels = null) {
+            hotelListings.innerHTML = '';
+            
+            const hotelsToRender = filteredHotels || hotels;
+            const occupancy = document.getElementById('search-occupancy').value;
+            
+            if (hotelsToRender.length === 0) {
+                hotelListings.innerHTML = '<p class="no-results">No hotels found matching your search criteria.</p>';
+                return;
+            }
+            
+            hotelsToRender.forEach(hotel => {
+                // Calculate price based on occupancy if selected
+                let displayPrice = hotel.price;
+                if (occupancy && hotel.priceVariants[occupancy]) {
+                    displayPrice = hotel.priceVariants[occupancy];
+                }
+                
+                const discount = Math.round(((hotel.originalPrice - displayPrice) / hotel.originalPrice) * 100);
+                const isSoldOut = hotel.availableRooms <= 0;
+                
+                const hotelCard = document.createElement('div');
+                hotelCard.className = 'hotel-card';
+                hotelCard.innerHTML = `
+                    ${isSoldOut ? '<div class="sold-out-badge">SOLD OUT</div>' : ''}
+                    <div class="hotel-image" data-hotel-id="${hotel.id}">
+                        <img src="${hotel.images[0]}" alt="${hotel.name}">
+                        <div class="image-count">${hotel.images.length} photos</div>
+                    </div>
+                    <div class="hotel-details">
+                        <h3 class="hotel-name">${hotel.name}</h3>
+                        <div class="hotel-location">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>${hotel.location}</span>
+                        </div>
+                        <div class="amenities">
+                            ${hotel.amenities.map(amenity => `
+                                <div class="amenity">
+                                    <i class="fas fa-${getAmenityIcon(amenity)}"></i>
+                                    <span>${amenity.charAt(0).toUpperCase() + amenity.slice(1)}</span>
+                                </div>
+                            `).join('')}
+                        </div>
+                        <div class="occupancy-price">
+                            ${occupancy ? `Price for ${occupancy} guest${occupancy > 1 ? 's' : ''}:` : 'Prices from'} ₹${Math.min(...Object.values(hotel.priceVariants))} per night
+                        </div>
+                        <div class="hotel-price">
+                            <div class="price">
+                                <span>₹${hotel.originalPrice}</span>
+                                ₹${displayPrice}
+                                <div class="discount">${discount}% OFF</div>
+                            </div>
+                            <div>Per Night</div>
+                        </div>
+                        <div class="available-rooms">
+                            ${isSoldOut ? 'No rooms available' : `${hotel.availableRooms} rooms available`}
+                        </div>
+                        <button class="btn-book" data-id="${hotel.id}" ${isSoldOut ? 'disabled' : ''}>
+                            ${isSoldOut ? 'Sold Out' : 'Book Now'}
+                        </button>
+                    </div>
+                `;
+                
+                hotelListings.appendChild(hotelCard);
+            });
+            
+            // Add event listeners to book buttons
+            document.querySelectorAll('.btn-book').forEach(button => {
+                button.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    const hotelId = parseInt(this.getAttribute('data-id'));
+                    openBookingModal(hotelId);
+                });
+            });
+            
+            // Add event listeners to hotel images for gallery view
+            document.querySelectorAll('.hotel-image').forEach(image => {
+                image.addEventListener('click', function() {
+                    const hotelId = parseInt(this.getAttribute('data-hotel-id'));
+                    openGalleryModal(hotelId);
+                });
+            });
+        }
+
+        // Get amenity icon based on amenity name
+        function getAmenityIcon(amenity) {
+            const icons = {
+                wifi: 'wifi',
+                parking: 'parking',
+                pool: 'swimming-pool',
+                ac: 'snowflake',
+                breakfast: 'coffee',
+                spa: 'spa',
+                beach: 'umbrella-beach',
+                fireplace: 'fire',
+                restaurant: 'utensils'
+            };
+            
+            return icons[amenity] || 'check';
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // Modal open/close events
+            adminLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+            
+            customerLoginLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'flex';
+            });
+            
+            registerLink.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'flex';
+            });
+            
+            // Switch between login and register
+            switchToRegister.addEventListener('click', function(e) {
+                e.preventDefault();
+                loginModal.style.display = 'none';
+                registerModal.style.display = 'flex';
+            });
+            
+            switchToLogin.addEventListener('click', function(e) {
+                e.preventDefault();
+                registerModal.style.display = 'none';
+                loginModal.style.display = 'flex';
+            });
+            
+            closeButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    loginModal.style.display = 'none';
+                    registerModal.style.display = 'none';
+                    bookingModal.style.display = 'none';
+                    paymentModal.style.display = 'none';
+                    hotelModal.style.display = 'none';
+                    galleryModal.style.display = 'none';
+                });
+            });
+            
+            closeLoginBtn.addEventListener('click', function() {
+                loginModal.style.display = 'none';
+            });
+            
+            closeRegisterBtn.addEventListener('click', function() {
+                registerModal.style.display = 'none';
+            });
+            
+            closeBookingBtn.addEventListener('click', function() {
+                bookingModal.style.display = 'none';
+            });
+            
+            closePaymentBtn.addEventListener('click', function() {
+                paymentModal.style.display = 'none';
+                paymentScreenshotData = null;
+                screenshotPreview.style.display = 'none';
+                screenshotUpload.value = '';
+            });
+            
+            closeHotelBtn.addEventListener('click', function() {
+                hotelModal.style.display = 'none';
+                uploadedPhotos = [];
+                photoPreview.innerHTML = '';
+            });
+            
+            // Search functionality
+            searchHotelsBtn.addEventListener('click', function() {
+                performSearch();
+            });
+            
+            headerSearchBtn.addEventListener('click', function() {
+                headerSearch.value = headerSearch.value.trim();
+                if (headerSearch.value) {
+                    searchLocation.value = headerSearch.value;
+                    performSearch();
+                }
+            });
+            
+            // Admin search functionality
+            adminHotelSearch.addEventListener('input', function() {
+                filterAdminHotels(this.value);
+            });
+            
+            adminBookingSearch.addEventListener('input', function() {
+                filterAdminBookings(this.value);
+            });
+            
+            adminCustomerSearch.addEventListener('input', function() {
+                filterAdminCustomers(this.value);
+            });
+            
+            // Photo upload functionality
+            hotelPhotosInput.addEventListener('change', function(e) {
+                handlePhotoUpload(e);
+            });
+            
+            // Payment options selection
+            paymentOptions.forEach(option => {
+                option.addEventListener('click', function() {
+                    paymentOptions.forEach(opt => opt.classList.remove('selected'));
+                    this.classList.add('selected');
+                    
+                    // Show UPI QR section if UPI is selected
+                    if (this.getAttribute('data-method') === 'upi') {
+                        upiQrSection.style.display = 'block';
+                        paymentScreenshot.style.display = 'block';
+                    } else {
+                        upiQrSection.style.display = 'none';
+                        paymentScreenshot.style.display = 'none';
+                    }
+                });
+            });
+            
+            // Screenshot upload
+            screenshotUpload.addEventListener('change', function(e) {
+                handleScreenshotUpload(e);
+            });
+            
+            // Form submission events
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const email = document.getElementById('login-email').value.trim().toLowerCase();
+                const password = document.getElementById('login-password').value;
+                
+                // Check if admin login
+                if (email === 'mdtaslim@bsrooms.com' && password === 'Mdtaslim786') {
+                    adminPanel.style.display = 'block';
+                    loginModal.style.display = 'none';
+                    renderAdminData();
+                    loginForm.reset();
+                } else {
+                    // Check if customer login
+                    const customer = customers.find(c => c.email.toLowerCase() === email && c.password === password);
+                    if (customer) {
+                        currentUser = customer;
+                        customerDashboard.style.display = 'block';
+                        loginModal.style.display = 'none';
+                        renderCustomerData();
+                        loginForm.reset();
+                    } else {
+                        alert('Invalid credentials. Please try again.');
+                    }
+                }
+            });
+            
+            registerForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const name = document.getElementById('register-name').value.trim();
+                const email = document.getElementById('register-email').value.trim().toLowerCase();
+                const phone = document.getElementById('register-phone').value.trim();
+                const password = document.getElementById('register-password').value;
+                const confirmPassword = document.getElementById('register-confirm-password').value;
+                
+                if (password !== confirmPassword) {
+                    alert('Passwords do not match.');
+                    return;
+                }
+                
+                // Check if email already exists
+                if (customers.find(c => c.email.toLowerCase() === email)) {
+                    alert('Email already registered. Please use a different email.');
+                    return;
+                }
+                
+                // Create new customer
+                const newCustomer = {
+                    id: customers.length > 0 ? Math.max(...customers.map(c => c.id)) + 1 : 2001,
+                    name,
+                    email,
+                    phone,
+                    password,
+                    bookings: 0
+                };
+                
+                customers.push(newCustomer);
+                saveDataToLocalStorage();
+                
+                alert(`Registration successful for ${name}! You can now login.`);
+                registerModal.style.display = 'none';
+                registerForm.reset();
+                
+                // Auto switch to login
+                loginModal.style.display = 'flex';
+            });
+            
+            // Booking form changes
+            document.getElementById('booking-guests').addEventListener('change', updateBookingSummary);
+            document.getElementById('booking-rooms').addEventListener('change', updateBookingSummary);
+            document.getElementById('booking-checkin').addEventListener('change', updateBookingSummary);
+            document.getElementById('booking-checkout').addEventListener('change', updateBookingSummary);
+            
+            // Proceed to payment
+            proceedPaymentBtn.addEventListener('click', function() {
+                if (!currentUser) {
+                    alert('Please login to book a hotel.');
+                    loginModal.style.display = 'flex';
+                    return;
+                }
+                
+                const hotel = hotels.find(h => h.id === currentHotelId);
+                const checkin = document.getElementById('booking-checkin').value;
+                const checkout = document.getElementById('booking-checkout').value;
+                const guests = document.getElementById('booking-guests').value;
+                const rooms = document.getElementById('booking-rooms').value;
+                
+                if (!checkin || !checkout) {
+                    alert('Please select check-in and check-out dates.');
+                    return;
+                }
+                
+                // Check room availability
+                if (hotel.availableRooms < parseInt(rooms)) {
+                    alert(`Sorry, only ${hotel.availableRooms} room(s) available. Please adjust your booking.`);
+                    return;
+                }
+                
+                // Calculate amount based on occupancy
+                const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+                const pricePerNight = hotel.priceVariants[guests] || hotel.price;
+                const amount = pricePerNight * nights * parseInt(rooms);
+                
+                currentBookingDetails = {
+                    hotel,
+                    checkin,
+                    checkout,
+                    guests,
+                    rooms,
+                    nights,
+                    amount
+                };
+                
+                bookingModal.style.display = 'none';
+                paymentModal.style.display = 'flex';
+            });
+            
+            // Confirm payment
+            confirmPaymentBtn.addEventListener('click', function() {
+                if (!currentBookingDetails) return;
+                
+                const { hotel, checkin, checkout, guests, rooms, nights, amount } = currentBookingDetails;
+                
+                // Create booking
+                const newBooking = {
+                    id: bookings.length > 0 ? Math.max(...bookings.map(b => b.id)) + 1 : 1001,
+                    customerId: currentUser.id,
+                    customer: currentUser.name,
+                    hotel: hotel.name,
+                    hotelId: hotel.id,
+                    checkin,
+                    checkout,
+                    guests,
+                    rooms,
+                    amount,
+                    status: "confirmed",
+                    paymentScreenshot: paymentScreenshotData
+                };
+                
+                bookings.push(newBooking);
+                
+                // Update hotel available rooms
+                const hotelIndex = hotels.findIndex(h => h.id === hotel.id);
+                if (hotelIndex !== -1) {
+                    hotels[hotelIndex].availableRooms -= parseInt(rooms);
+                }
+                
+                // Update customer bookings count
+                currentUser.bookings += 1;
+                
+                // Save to localStorage
+                saveDataToLocalStorage();
+                
+                alert(`Booking confirmed for ${hotel.name} from ${checkin} to ${checkout}! Total: ₹${amount}`);
+                paymentModal.style.display = 'none';
+                
+                // Reset payment data
+                paymentScreenshotData = null;
+                screenshotPreview.style.display = 'none';
+                screenshotUpload.value = '';
+                
+                // Refresh displays
+                renderHotels();
+                if (adminPanel.style.display === 'block') {
+                    renderAdminData();
+                }
+                if (customerDashboard.style.display === 'block') {
+                    renderCustomerData();
+                }
+                
+                currentBookingDetails = null;
+            });
+            
+            // Hotel form submission
+            hotelForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const id = document.getElementById('hotel-id').value;
+                const name = document.getElementById('hotel-name').value;
+                const location = document.getElementById('hotel-location').value;
+                const price1 = parseInt(document.getElementById('price-1').value);
+                const price2 = parseInt(document.getElementById('price-2').value);
+                const price3 = parseInt(document.getElementById('price-3').value);
+                const price4 = parseInt(document.getElementById('price-4').value);
+                const price5 = parseInt(document.getElementById('price-5').value);
+                const originalPrice = parseInt(document.getElementById('hotel-original-price').value);
+                const availableRooms = parseInt(document.getElementById('hotel-available-rooms').value);
+                const amenities = document.getElementById('hotel-amenities').value.split(',').map(a => a.trim());
+                
+                // Use price for 2 guests as the default price
+                const price = price2;
+                
+                const priceVariants = {
+                    1: price1,
+                    2: price2,
+                    3: price3,
+                    4: price4,
+                    5: price5
+                };
+                
+                // Use uploaded photos if available, otherwise use default images
+                let images;
+                if (uploadedPhotos.length >= 5) {
+                    images = [...uploadedPhotos];
+                } else if (isEditingHotel) {
+                    // Keep existing images when editing if not enough new ones uploaded
+                    const existingHotel = hotels.find(h => h.id === parseInt(id));
+                    images = existingHotel ? existingHotel.images : [
+                        "https://images.unsplash.com/photo-1582719508461-905c673771fd?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1611892440504-42a792e24d32?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1590490360182-c33d57733427?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1631049307264-da0ec9d70304?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80",
+                        "https://images.unsplash.com/photo-1564501049412-61c2a3083791?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=600&q=80"
+                    ];
+                } else {
+                    alert('Please upload at least 5 photos for the hotel.');
+                    return;
+                }
+                
+                if (isEditingHotel) {
+                    // Update existing hotel
+                    const hotelIndex = hotels.findIndex(h => h.id === parseInt(id));
+                    if (hotelIndex !== -1) {
+                        hotels[hotelIndex] = {
+                            ...hotels[hotelIndex],
+                            name,
+                            location,
+                            price,
+                            originalPrice,
+                            priceVariants,
+                            images,
+                            availableRooms,
+                            amenities
+                        };
+                    }
+                } else {
+                    // Add new hotel
+                    const newHotel = {
+                        id: hotels.length > 0 ? Math.max(...hotels.map(h => h.id)) + 1 : 1,
+                        name,
+                        location,
+                        price,
+                        originalPrice,
+                        priceVariants,
+                        images,
+                        availableRooms,
+                        amenities
+                    };
+                    hotels.push(newHotel);
+                }
+                
+                // Save to localStorage
+                saveDataToLocalStorage();
+                
+                hotelModal.style.display = 'none';
+                hotelForm.reset();
+                uploadedPhotos = [];
+                photoPreview.innerHTML = '';
+                renderHotels();
+                renderAdminData();
+                alert('Hotel saved successfully!');
+            });
+            
+            // Admin events
+            logoutAdminBtn.addEventListener('click', function() {
+                adminPanel.style.display = 'none';
+            });
+            
+            logoutCustomerBtn.addEventListener('click', function() {
+                customerDashboard.style.display = 'none';
+                currentUser = null;
+            });
+            
+            adminTabs.forEach(tab => {
+                tab.addEventListener('click', function() {
+                    const tabName = this.getAttribute('data-tab');
+                    
+                    // Update active tab
+                    adminTabs.forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    // Show corresponding content
+                    adminContents.forEach(content => {
+                        content.classList.remove('active');
+                        if (content.id === `${tabName}-content`) {
+                            content.classList.add('active');
+                        }
+                    });
+                });
+            });
+            
+            addHotelBtn.addEventListener('click', function() {
+                isEditingHotel = false;
+                hotelModalTitle.textContent = "Add New Hotel";
+                hotelForm.reset();
+                document.getElementById('hotel-id').value = '';
+                uploadedPhotos = [];
+                photoPreview.innerHTML = '';
+                hotelModal.style.display = 'flex';
+            });
+        }
+
+        // Handle screenshot upload
+        function handleScreenshotUpload(e) {
+            const file = e.target.files[0];
+            
+            if (file && file.type.match('image.*')) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    paymentScreenshotData = e.target.result;
+                    screenshotPreview.querySelector('img').src = paymentScreenshotData;
+                    screenshotPreview.style.display = 'block';
+                };
+                
+                reader.readAsDataURL(file);
+            }
+        }
+
+        // Update booking summary
+        function updateBookingSummary() {
+            const hotel = hotels.find(h => h.id === currentHotelId);
+            if (!hotel) return;
+            
+            const guests = document.getElementById('booking-guests').value;
+            const rooms = document.getElementById('booking-rooms').value;
+            const checkin = document.getElementById('booking-checkin').value;
+            const checkout = document.getElementById('booking-checkout').value;
+            
+            if (!checkin || !checkout) return;
+            
+            // Calculate nights
+            const nights = Math.ceil((new Date(checkout) - new Date(checkin)) / (1000 * 60 * 60 * 24));
+            
+            // Calculate price based on occupancy
+            const pricePerNightValue = hotel.priceVariants[guests] || hotel.price;
+            const totalAmountValue = pricePerNightValue * nights * parseInt(rooms);
+            
+            // Update display
+            pricePerNight.textContent = `₹${pricePerNightValue}`;
+            totalNights.textContent = nights;
+            totalAmount.textContent = `₹${totalAmountValue}`;
+        }
+
+        // Perform search based on location and occupancy
+        function performSearch() {
+            const locationQuery = searchLocation.value.toLowerCase().trim();
+            const occupancyQuery = searchOccupancy.value;
+            
+            let filteredHotels = hotels;
+            
+            // Filter by location
+            if (locationQuery) {
+                filteredHotels = filteredHotels.filter(hotel => 
+                    hotel.name.toLowerCase().includes(locationQuery) || 
+                    hotel.location.toLowerCase().includes(locationQuery)
+                );
+            }
+            
+            // Filter by occupancy (if selected)
+            if (occupancyQuery) {
+                // In a real app, you would check room capacity
+                // For this demo, we'll just show all hotels
+                // filteredHotels = filteredHotels.filter(hotel => hotel.availableRooms > 0);
+            }
+            
+            renderHotels(filteredHotels);
+        }
+
+        // Filter admin hotels
+        function filterAdminHotels(query) {
+            const filteredHotels = hotels.filter(hotel => 
+                hotel.name.toLowerCase().includes(query.toLowerCase()) ||
+                hotel.location.toLowerCase().includes(query.toLowerCase())
+            );
+            renderAdminHotels(filteredHotels);
+        }
+
+        // Filter admin bookings
+        function filterAdminBookings(query) {
+            const filteredBookings = bookings.filter(booking => 
+                booking.id.toString().includes(query) ||
+                booking.customer.toLowerCase().includes(query.toLowerCase()) ||
+                booking.hotel.toLowerCase().includes(query.toLowerCase())
+            );
+            renderAdminBookings(filteredBookings);
+        }
+
+        // Filter admin customers
+        function filterAdminCustomers(query) {
+            const filteredCustomers = customers.filter(customer => 
+                customer.name.toLowerCase().includes(query.toLowerCase()) ||
+                customer.email.toLowerCase().includes(query.toLowerCase())
+            );
+            renderAdminCustomers(filteredCustomers);
+        }
+
+        // Handle photo upload
+        function handlePhotoUpload(e) {
+            const files = e.target.files;
+            
+            for (let i = 0; i < files.length; i++) {
+                const file = files[i];
+                
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+                    
+                    reader.onload = function(e) {
+                        uploadedPhotos.push(e.target.result);
+                        updatePhotoPreview();
+                    };
+                    
+                    reader.readAsDataURL(file);
+                }
+            }
+        }
+
+        // Update photo preview
+        function updatePhotoPreview() {
+            photoPreview.innerHTML = '';
+            
+            uploadedPhotos.forEach((photo, index) => {
+                const previewItem = document.createElement('div');
+                previewItem.className = 'photo-preview-item';
+                previewItem.innerHTML = `
+                    <img src="${photo}" alt="Preview ${index + 1}">
+                    <button type="button" class="remove-photo" data-index="${index}">
+                        <i class="fas fa-times"></i>
+                    </button>
+                `;
+                photoPreview.appendChild(previewItem);
+            });
+            
+            // Add event listeners to remove buttons
+            document.querySelectorAll('.remove-photo').forEach(button => {
+                button.addEventListener('click', function() {
+                    const index = parseInt(this.getAttribute('data-index'));
+                    uploadedPhotos.splice(index, 1);
+                    updatePhotoPreview();
+                });
+            });
+        }
+
+        // Open booking modal with hotel details
+        function openBookingModal(hotelId) {
+            const hotel = hotels.find(h => h.id === hotelId);
+            if (!hotel) return;
+            
+            currentHotelId = hotelId;
+            document.getElementById('booking-hotel').value = hotel.name;
+            
+            // Reset form
+            document.getElementById('booking-checkin').value = '';
+            document.getElementById('booking-checkout').value = '';
+            document.getElementById('booking-guests').value = '2';
+            document.getElementById('booking-rooms').value = '1';
+            
+            bookingModal.style.display = 'flex';
+            
+            // Set default dates (tomorrow and day after)
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dayAfter = new Date();
+            dayAfter.setDate(dayAfter.getDate() + 2);
+            
+            document.getElementById('booking-checkin').valueAsDate = tomorrow;
+            document.getElementById('booking-checkout').valueAsDate = dayAfter;
+            
+            // Update booking summary
+            updateBookingSummary();
+        }
+
+        // Open gallery modal with hotel photos
+        function openGalleryModal(hotelId) {
+            const hotel = hotels.find(h => h.id === hotelId);
+            if (!hotel) return;
+            
+            currentGalleryHotel = hotel;
+            galleryHotelName.textContent = `${hotel.name} - Photos`;
+            galleryMainImg.src = hotel.images[0];
+            
+            // Clear and populate thumbnails
+            galleryThumbnails.innerHTML = '';
+            hotel.images.forEach((image, index) => {
+                const thumb = document.createElement('div');
+                thumb.className = `gallery-thumb ${index === 0 ? 'active' : ''}`;
+                thumb.innerHTML = `<img src="${image}" alt="Thumbnail ${index + 1}">`;
+                thumb.addEventListener('click', function() {
+                    // Update main image
+                    galleryMainImg.src = image;
+                    
+                    // Update active thumbnail
+                    document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+                    this.classList.add('active');
+                });
+                galleryThumbnails.appendChild(thumb);
+            });
+            
+            galleryModal.style.display = 'flex';
+        }
+
+        // Render admin data
+        function renderAdminData() {
+            renderAdminHotels();
+            renderAdminBookings();
+            renderAdminCustomers();
+        }
+
+        // Render admin hotels
+        function renderAdminHotels(filteredHotels = null) {
+            adminHotelsList.innerHTML = '';
+            
+            const hotelsToRender = filteredHotels || hotels;
+            
+            hotelsToRender.forEach(hotel => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${hotel.name}</td>
+                    <td>${hotel.location}</td>
+                    <td>₹${hotel.price}</td>
+                    <td>${hotel.availableRooms}</td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${hotel.id}">Edit</button>
+                        <button class="action-btn btn-delete" data-id="${hotel.id}">Delete</button>
+                    </td>
+                `;
+                adminHotelsList.appendChild(row);
+            });
+            
+            // Add event listeners to hotel edit/delete buttons
+            document.querySelectorAll('.btn-edit[data-id]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const hotelId = parseInt(this.getAttribute('data-id'));
+                    editHotel(hotelId);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete[data-id]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const hotelId = parseInt(this.getAttribute('data-id'));
+                    deleteHotel(hotelId);
+                });
+            });
+        }
+
+        // Render admin bookings
+        function renderAdminBookings(filteredBookings = null) {
+            adminBookingsList.innerHTML = '';
+            
+            const bookingsToRender = filteredBookings || bookings;
+            
+            bookingsToRender.forEach(booking => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${booking.id}</td>
+                    <td>${booking.customer}</td>
+                    <td>${booking.hotel}</td>
+                    <td>${booking.checkin}</td>
+                    <td>${booking.checkout}</td>
+                    <td>₹${booking.amount}</td>
+                    <td><span class="status ${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span></td>
+                    <td class="screenshot-cell">
+                        ${booking.paymentScreenshot ? `<img src="${booking.paymentScreenshot}" alt="Payment Proof" style="cursor: pointer;" onclick="viewScreenshot('${booking.paymentScreenshot}')">` : 'No proof'}
+                    </td>
+                    <td>
+                        <button class="action-btn btn-confirm" data-id="${booking.id}">Confirm</button>
+                        <button class="action-btn btn-edit" data-id="${booking.id}">Modify</button>
+                        <button class="action-btn btn-delete" data-id="${booking.id}">Cancel</button>
+                    </td>
+                `;
+                adminBookingsList.appendChild(row);
+            });
+            
+            // Add event listeners to booking action buttons
+            document.querySelectorAll('.btn-confirm[data-id]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = parseInt(this.getAttribute('data-id'));
+                    confirmBooking(bookingId);
+                });
+            });
+            
+            document.querySelectorAll('.btn-delete[data-id]').forEach(button => {
+                button.addEventListener('click', function() {
+                    const bookingId = parseInt(this.getAttribute('data-id'));
+                    cancelBooking(bookingId);
+                });
+            });
+        }
+
+        // Render admin customers
+        function renderAdminCustomers(filteredCustomers = null) {
+            adminCustomersList.innerHTML = '';
+            
+            const customersToRender = filteredCustomers || customers;
+            
+            customersToRender.forEach(customer => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${customer.id}</td>
+                    <td>${customer.name}</td>
+                    <td>${customer.email}</td>
+                    <td>${customer.phone}</td>
+                    <td>${customer.bookings}</td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${customer.id}">Edit</button>
+                        <button class="action-btn btn-delete" data-id="${customer.id}">Delete</button>
+                    </td>
+                `;
+                adminCustomersList.appendChild(row);
+            });
+        }
+
+        // Render customer data
+        function renderCustomerData() {
+            if (!currentUser) return;
+            
+            customerBookingsList.innerHTML = '';
+            const userBookings = bookings.filter(b => b.customerId === currentUser.id);
+            
+            userBookings.forEach(booking => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>#${booking.id}</td>
+                    <td>${booking.hotel}</td>
+                    <td>${booking.checkin}</td>
+                    <td>${booking.checkout}</td>
+                    <td>₹${booking.amount}</td>
+                    <td><span class="status ${booking.status}">${booking.status.charAt(0).toUpperCase() + booking.status.slice(1)}</span></td>
+                    <td>
+                        <button class="action-btn btn-edit" data-id="${booking.id}">Modify</button>
+                        <button class="action-btn btn-delete" data-id="${booking.id}">Cancel</button>
+                    </td>
+                `;
+                customerBookingsList.appendChild(row);
+            });
+        }
+
+        // Hotel management functions
+        function editHotel(hotelId) {
+            const hotel = hotels.find(h => h.id === hotelId);
+            if (!hotel) return;
+            
+            isEditingHotel = true;
+            hotelModalTitle.textContent = "Edit Hotel";
+            
+            document.getElementById('hotel-id').value = hotel.id;
+            document.getElementById('hotel-name').value = hotel.name;
+            document.getElementById('hotel-location').value = hotel.location;
+            document.getElementById('price-1').value = hotel.priceVariants[1];
+            document.getElementById('price-2').value = hotel.priceVariants[2];
+            document.getElementById('price-3').value = hotel.priceVariants[3];
+            document.getElementById('price-4').value = hotel.priceVariants[4];
+            document.getElementById('price-5').value = hotel.priceVariants[5];
+            document.getElementById('hotel-original-price').value = hotel.originalPrice;
+            document.getElementById('hotel-available-rooms').value = hotel.availableRooms;
+            document.getElementById('hotel-amenities').value = hotel.amenities.join(', ');
+            
+            // Show existing photos in preview
+            uploadedPhotos = [...hotel.images];
+            updatePhotoPreview();
+            
+            hotelModal.style.display = 'flex';
+        }
+
+        function deleteHotel(hotelId) {
+            if (confirm('Are you sure you want to delete this hotel?')) {
+                hotels = hotels.filter(h => h.id !== hotelId);
+                saveDataToLocalStorage();
+                renderHotels();
+                renderAdminData();
+            }
+        }
+
+        // Booking management functions
+        function confirmBooking(bookingId) {
+            const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+            if (bookingIndex !== -1) {
+                bookings[bookingIndex].status = 'confirmed';
+                saveDataToLocalStorage();
+                renderAdminData();
+                alert('Booking confirmed successfully!');
+            }
+        }
+
+        function cancelBooking(bookingId) {
+            if (confirm('Are you sure you want to cancel this booking?')) {
+                const bookingIndex = bookings.findIndex(b => b.id === bookingId);
+                if (bookingIndex !== -1) {
+                    // Restore rooms to hotel
+                    const booking = bookings[bookingIndex];
+                    const hotelIndex = hotels.findIndex(h => h.id === booking.hotelId);
+                    if (hotelIndex !== -1) {
+                        hotels[hotelIndex].availableRooms += booking.rooms || 1;
+                    }
+                    
+                    bookings[bookingIndex].status = 'cancelled';
+                    saveDataToLocalStorage();
+                    renderAdminData();
+                    renderHotels();
+                    
+                    // If customer is logged in, refresh their dashboard
+                    if (currentUser && customerDashboard.style.display === 'block') {
+                        renderCustomerData();
+                    }
+                    
+                    alert('Booking cancelled successfully! Rooms have been restored.');
+                }
+            }
+        }
+
+        // View screenshot in full size
+        function viewScreenshot(screenshotUrl) {
+            const screenshotWindow = window.open('', '_blank');
+            screenshotWindow.document.write(`
+                <html>
+                    <head>
+                        <title>Payment Screenshot</title>
+                        <style>
+                            body { margin: 0; padding: 20px; display: flex; justify-content: center; align-items: center; min-height: 100vh; background: #f5f5f5; }
+                            img { max-width: 100%; max-height: 90vh; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+                        </style>
+                    </head>
+                    <body>
+                        <img src="${screenshotUrl}" alt="Payment Screenshot">
+                    </body>
+                </html>
+            `);
+        }
+    </script>
+</body>
+</html>
